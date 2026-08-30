@@ -1,31 +1,1186 @@
-🤖 My JARVIS
-1. Google Login
-806255243202-3ijvpge3h2ero76f5k9s0sdhc96ds59u.apps.googleusercontent.com
- Save Client ID Google Login
-JARVIS_DATA Folder ID save हो गई ✅
-2. JARVIS_DATA
-1_yqJoEuNIecq_rTkS-AwfEQPcptIc3mN
- Save Folder ID Drive में Files देखें
-JARVIS_NOTE_1788004672630.txt
-text/plain
-Drive में खोलें
-Screenshot (159).png
-image/png
-Drive में खोलें
-Screenshot (159).png
-image/png
-Drive में खोलें
-Screenshot (159).png
-image/png
-Drive में खोलें
-WhatsApp Image 2026-08-25 at 9.18.49 AM.jpeg
-image/jpeg
-Drive में खोलें
-3. File Upload
-No file chosen JARVIS_DATA में Upload करें
-File successfully upload हो गई ✅
-4. JARVIS Notes
-अपना note यहाँ लिखें...
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My JARVIS</title>
 
- Note Drive में Save करें
-पहले note लिखें।
+<style>
+body{
+  font-family:Arial,sans-serif;
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+  background:#f4f7fb;
+  color:#172033;
+}
+h1{text-align:center}
+
+.card{
+  background:white;
+  padding:20px;
+  margin:15px 0;
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+input,textarea{
+  width:100%;
+  box-sizing:border-box;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #ccd3df;
+  border-radius:8px;
+  font-size:15px;
+}
+
+button{
+  padding:11px 16px;
+  margin:5px;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+  background:#1769e0;
+  color:white;
+  font-size:14px;
+}
+
+.status{
+  margin-top:10px;
+  font-weight:bold;
+}
+
+.file{
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.small{
+  color:#667085;
+  font-size:13px;
+}
+
+a{
+  color:#1769e0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🤖 My JARVIS</h1>
+
+<div class="card">
+<h2>1. Google Login</h2>
+
+<input
+  id="clientId"
+  placeholder="Google OAuth Client ID"
+>
+
+<button onclick="saveClientId()">
+Save Client ID
+</button>
+
+<button onclick="googleLogin()">
+Google Login
+</button>
+
+<div id="loginStatus" class="status"></div>
+</div>
+
+
+<div class="card">
+
+<h2>2. JARVIS_DATA</h2>
+
+<input
+  id="folderId"
+  placeholder="JARVIS_DATA Folder ID"
+>
+
+<button onclick="saveFolderId()">
+Save Folder ID
+</button>
+
+<button onclick="listFiles()">
+Drive में Files देखें
+</button>
+
+<div id="fileList"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>3. 🔎 File Search</h2>
+
+<input
+  id="searchText"
+  placeholder="File का नाम लिखें..."
+>
+
+<button onclick="searchFiles()">
+🔎 Search
+</button>
+
+<div id="searchStatus" class="status"></div>
+
+<div id="searchResults"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>4. File Upload</h2>
+
+<input
+  id="fileUpload"
+  type="file"
+>
+
+<button onclick="uploadFile()">
+JARVIS_DATA में Upload करें
+</button>
+
+<div id="uploadStatus" class="status"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>5. JARVIS Notes</h2>
+
+<textarea
+  id="noteText"
+  rows="6"
+  placeholder="अपना note यहाँ लिखें..."
+></textarea>
+
+<button onclick="saveNote()">
+Note Drive में Save करें
+</button>
+
+<div id="noteStatus" class="status"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>6. 🎤 Voice JARVIS</h2>
+
+<button onclick="startVoiceJARVIS()">
+🎤 बोलकर File खोजें
+</button>
+
+<div id="voiceStatus" class="status"></div>
+
+</div>
+
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script>
+
+const DRIVE_SCOPE =
+"https://www.googleapis.com/auth/drive";
+
+let accessToken = null;
+let tokenClient = null;
+
+
+/* PAGE LOAD */
+
+window.addEventListener("load", function(){
+
+  document.getElementById("clientId").value =
+    localStorage.getItem("jarvisClientId") || "";
+
+  document.getElementById("folderId").value =
+    localStorage.getItem("jarvisFolderId") || "";
+
+});
+
+
+/* STATUS */
+
+function status(id,msg){
+
+  document.getElementById(id).textContent = msg;
+
+}
+
+
+/* SAVE CLIENT ID */
+
+function saveClientId(){
+
+  const clientId =
+    document.getElementById("clientId")
+    .value.trim();
+
+  if(!clientId){
+
+    status(
+      "loginStatus",
+      "पहले Client ID डालें।"
+    );
+
+    return;
+  }
+
+  localStorage.setItem(
+    "jarvisClientId",
+    clientId
+  );
+
+  status(
+    "loginStatus",
+    "Client ID save हो गया ✅"
+  );
+
+}
+
+
+/* SAVE FOLDER ID */
+
+function saveFolderId(){
+
+  const folderId =
+    document.getElementById("folderId")
+    .value.trim();
+
+  if(!folderId){
+
+    status(
+      "loginStatus",
+      "पहले Folder ID डालें।"
+    );
+
+    return;
+  }
+
+  localStorage.setItem(
+    "jarvisFolderId",
+    folderId
+  );
+
+  status(
+    "loginStatus",
+    "JARVIS_DATA Folder ID save हो गई ✅"
+  );
+
+}
+
+
+/* GOOGLE LOGIN */
+
+function googleLogin(){
+
+  const clientId =
+    document.getElementById("clientId")
+    .value.trim();
+
+  if(!clientId){
+
+    status(
+      "loginStatus",
+      "पहले Google OAuth Client ID डालें।"
+    );
+
+    return;
+  }
+
+  if(!window.google){
+
+    status(
+      "loginStatus",
+      "Google Login load हो रहा है।"
+    );
+
+    return;
+  }
+
+  tokenClient =
+    google.accounts.oauth2.initTokenClient({
+
+      client_id:clientId,
+
+      scope:DRIVE_SCOPE,
+
+      callback:function(response){
+
+        if(response.error){
+
+          status(
+            "loginStatus",
+            "Google Login Error: "
+            + response.error
+          );
+
+          return;
+        }
+
+        accessToken =
+          response.access_token;
+
+        status(
+          "loginStatus",
+          "Google Login सफल ✅"
+        );
+
+        listFiles();
+
+      }
+
+    });
+
+
+  tokenClient.requestAccessToken({
+    prompt:"consent"
+  });
+
+}
+
+
+/* DRIVE REQUEST */
+
+async function driveRequest(
+  url,
+  options={}
+){
+
+  if(!accessToken){
+
+    throw new Error(
+      "पहले Google Login करें।"
+    );
+
+  }
+
+  options.headers =
+    Object.assign(
+
+      {
+        "Authorization":
+        "Bearer " + accessToken
+      },
+
+      options.headers || {}
+
+    );
+
+
+  const response =
+    await fetch(url,options);
+
+
+  if(!response.ok){
+
+    throw new Error(
+      await response.text()
+    );
+
+  }
+
+
+  return response;
+
+}
+
+
+/* FOLDER */
+
+function folder(){
+
+  return document
+    .getElementById("folderId")
+    .value.trim();
+
+}
+
+
+/* DRIVE LINK */
+
+function driveLink(id){
+
+  return "https://drive.google.com/file/d/"
+    + encodeURIComponent(id)
+    + "/view";
+
+}
+
+
+/* FILE HTML */
+
+function fileHtml(file){
+
+  return `
+
+  <div class="file">
+
+    <b>
+      ${escapeHtml(file.name)}
+    </b>
+
+    <br>
+
+    <span class="small">
+      ${escapeHtml(file.mimeType)}
+    </span>
+
+    <br>
+
+    <a
+      href="${driveLink(file.id)}"
+      target="_blank"
+      rel="noopener"
+    >
+      📂 Drive में खोलें
+    </a>
+
+  </div>
+
+  `;
+
+}
+
+
+/* LIST FILES */
+
+async function listFiles(){
+
+  try{
+
+    const folderId =
+      folder();
+
+
+    if(!folderId){
+
+      document
+        .getElementById("fileList")
+        .textContent =
+        "पहले JARVIS_DATA Folder ID डालें।";
+
+      return;
+    }
+
+
+    const query =
+      "'" +
+      folderId +
+      "' in parents and trashed=false";
+
+
+    const url =
+      "https://www.googleapis.com/drive/v3/files?"
+      +
+      new URLSearchParams({
+
+        q:query,
+
+        fields:
+        "files(id,name,mimeType,modifiedTime)",
+
+        pageSize:"100",
+
+        orderBy:"modifiedTime desc"
+
+      });
+
+
+    const response =
+      await driveRequest(url);
+
+
+    const data =
+      await response.json();
+
+
+    const list =
+      document.getElementById("fileList");
+
+
+    if(
+      !data.files ||
+      data.files.length === 0
+    ){
+
+      list.innerHTML =
+        "<p>JARVIS_DATA folder खाली है।</p>";
+
+      return;
+    }
+
+
+    list.innerHTML =
+      data.files
+      .map(fileHtml)
+      .join("");
+
+  }
+
+  catch(error){
+
+    document
+      .getElementById("fileList")
+      .textContent =
+      "Error: " + error.message;
+
+  }
+
+}
+
+
+/* SEARCH FILE */
+
+async function searchFiles(){
+
+  const term =
+    document
+    .getElementById("searchText")
+    .value
+    .trim();
+
+
+  const folderId =
+    folder();
+
+
+  if(!term){
+
+    status(
+      "searchStatus",
+      "पहले file का नाम लिखें।"
+    );
+
+    return;
+  }
+
+
+  if(!folderId){
+
+    status(
+      "searchStatus",
+      "पहले Folder ID डालें।"
+    );
+
+    return;
+  }
+
+
+  if(!accessToken){
+
+    status(
+      "searchStatus",
+      "पहले Google Login करें।"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const safeTerm =
+      term.replace(/'/g,"\\'");
+
+
+    const query =
+      "'" +
+      folderId +
+      "' in parents and trashed=false and name contains '" +
+      safeTerm +
+      "'";
+
+
+    const url =
+      "https://www.googleapis.com/drive/v3/files?"
+      +
+      new URLSearchParams({
+
+        q:query,
+
+        fields:
+        "files(id,name,mimeType)",
+
+        pageSize:"100"
+
+      });
+
+
+    const response =
+      await driveRequest(url);
+
+
+    const data =
+      await response.json();
+
+
+    const files =
+      data.files || [];
+
+
+    status(
+      "searchStatus",
+
+      files.length
+      ? "✅ " + files.length + " file मिली।"
+      : "❌ कोई file नहीं मिली।"
+
+    );
+
+
+    document
+      .getElementById("searchResults")
+      .innerHTML =
+      files.map(fileHtml).join("");
+
+
+  }
+
+  catch(error){
+
+    status(
+      "searchStatus",
+      "Search Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* UPLOAD */
+
+async function uploadFile(){
+
+  const file =
+    document
+    .getElementById("fileUpload")
+    .files[0];
+
+
+  const folderId =
+    folder();
+
+
+  if(!file){
+
+    status(
+      "uploadStatus",
+      "पहले कोई file चुनें।"
+    );
+
+    return;
+  }
+
+
+  if(!folderId){
+
+    status(
+      "uploadStatus",
+      "पहले Folder ID डालें।"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const boundary =
+      "jarvis_" +
+      Date.now();
+
+
+    const metadata = {
+
+      name:file.name,
+
+      parents:[folderId]
+
+    };
+
+
+    const body =
+      new Blob([
+
+        "--" +
+        boundary +
+        "\r\n",
+
+        "Content-Type: application/json; charset=UTF-8\r\n\r\n",
+
+        JSON.stringify(metadata),
+
+        "\r\n--" +
+        boundary +
+        "\r\n",
+
+        "Content-Type: " +
+        (
+          file.type ||
+          "application/octet-stream"
+        ) +
+        "\r\n\r\n",
+
+        file,
+
+        "\r\n--" +
+        boundary +
+        "--"
+
+      ]);
+
+
+    await driveRequest(
+
+      "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+
+      {
+
+        method:"POST",
+
+        headers:{
+
+          "Content-Type":
+          "multipart/related; boundary=" +
+          boundary
+
+        },
+
+        body:body
+
+      }
+
+    );
+
+
+    status(
+      "uploadStatus",
+      "File successfully upload हो गई ✅"
+    );
+
+
+    document
+      .getElementById("fileUpload")
+      .value="";
+
+
+    listFiles();
+
+  }
+
+  catch(error){
+
+    status(
+      "uploadStatus",
+      "Upload Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* SAVE NOTE */
+
+async function saveNote(){
+
+  const text =
+    document
+    .getElementById("noteText")
+    .value
+    .trim();
+
+
+  const folderId =
+    folder();
+
+
+  if(!text){
+
+    status(
+      "noteStatus",
+      "पहले note लिखें।"
+    );
+
+    return;
+  }
+
+
+  if(!folderId){
+
+    status(
+      "noteStatus",
+      "पहले Folder ID डालें।"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const boundary =
+      "jarvis_note_" +
+      Date.now();
+
+
+    const metadata = {
+
+      name:
+      "JARVIS_NOTE_" +
+      Date.now() +
+      ".txt",
+
+      parents:[folderId],
+
+      mimeType:"text/plain"
+
+    };
+
+
+    const body =
+      new Blob([
+
+        "--" +
+        boundary +
+        "\r\n",
+
+        "Content-Type: application/json; charset=UTF-8\r\n\r\n",
+
+        JSON.stringify(metadata),
+
+        "\r\n--" +
+        boundary +
+        "\r\n",
+
+        "Content-Type: text/plain; charset=UTF-8\r\n\r\n",
+
+        text,
+
+        "\r\n--" +
+        boundary +
+        "--"
+
+      ]);
+
+
+    await driveRequest(
+
+      "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+
+      {
+
+        method:"POST",
+
+        headers:{
+
+          "Content-Type":
+          "multipart/related; boundary=" +
+          boundary
+
+        },
+
+        body:body
+
+      }
+
+    );
+
+
+    document
+      .getElementById("noteText")
+      .value="";
+
+
+    status(
+      "noteStatus",
+      "Note Drive में save हो गया ✅"
+    );
+
+
+    listFiles();
+
+  }
+
+  catch(error){
+
+    status(
+      "noteStatus",
+      "Note Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* VOICE JARVIS */
+
+function startVoiceJARVIS(){
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+  if(!SpeechRecognition){
+
+    status(
+      "voiceStatus",
+      "Chrome में Voice Search चलाएँ।"
+    );
+
+    return;
+  }
+
+
+  const recognition =
+    new SpeechRecognition();
+
+
+  recognition.lang =
+    "hi-IN";
+
+
+  recognition.continuous =
+    false;
+
+
+  recognition.interimResults =
+    false;
+
+
+  status(
+    "voiceStatus",
+    "🎤 सुन रहा हूँ... File का नाम बोलिए।"
+  );
+
+
+  recognition.start();
+
+
+  recognition.onresult =
+  function(event){
+
+    const text =
+      event
+      .results[0][0]
+      .transcript
+      .trim();
+
+
+    status(
+      "voiceStatus",
+      "आपने कहा: " + text
+    );
+
+
+    const term =
+      text
+      .replace(
+        /फाइल|फ़ाइल|file|खोलो|खोलना|खोलें|ढूंढो|ढूँढो|सर्च|search|वाली|वाला|वाले|को/gi,
+        " "
+      )
+      .replace(/\s+/g," ")
+      .trim();
+
+
+    if(!term){
+
+      status(
+        "voiceStatus",
+        "❌ File का नाम समझ नहीं आया।"
+      );
+
+      return;
+    }
+
+
+    document
+      .getElementById("searchText")
+      .value=term;
+
+
+    voiceSearch(term);
+
+  };
+
+
+  recognition.onerror =
+  function(event){
+
+    status(
+      "voiceStatus",
+      "Voice Error: " +
+      event.error
+    );
+
+  };
+
+}
+
+
+/* VOICE SEARCH */
+
+async function voiceSearch(term){
+
+  const folderId =
+    folder();
+
+
+  if(!folderId){
+
+    status(
+      "voiceStatus",
+      "पहले Folder ID डालें।"
+    );
+
+    return;
+  }
+
+
+  if(!accessToken){
+
+    status(
+      "voiceStatus",
+      "पहले Google Login करें।"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const safeTerm =
+      term.replace(/'/g,"\\'");
+
+
+    const query =
+      "'" +
+      folderId +
+      "' in parents and trashed=false and name contains '" +
+      safeTerm +
+      "'";
+
+
+    const url =
+      "https://www.googleapis.com/drive/v3/files?"
+      +
+      new URLSearchParams({
+
+        q:query,
+
+        fields:
+        "files(id,name,mimeType)",
+
+        pageSize:"20"
+
+      });
+
+
+    const response =
+      await driveRequest(url);
+
+
+    const data =
+      await response.json();
+
+
+    const files =
+      data.files || [];
+
+
+    if(!files.length){
+
+      status(
+        "voiceStatus",
+        "❌ '" +
+        term +
+        "' नाम की file नहीं मिली।"
+      );
+
+      return;
+    }
+
+
+    status(
+      "voiceStatus",
+      "✅ " +
+      files.length +
+      " file मिली।"
+    );
+
+
+    document
+      .getElementById("searchResults")
+      .innerHTML =
+      files.map(fileHtml).join("");
+
+
+    if(files.length === 1){
+
+      window.open(
+        driveLink(files[0].id),
+        "_blank"
+      );
+
+    }
+
+  }
+
+  catch(error){
+
+    status(
+      "voiceStatus",
+      "Voice Search Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* HTML SECURITY */
+
+function escapeHtml(text){
+
+  return String(text).replace(
+
+    /[&<>"']/g,
+
+    function(character){
+
+      return {
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+      }[character];
+
+    }
+
+  );
+
+}
+
+</script>
+
+</body>
+</html>
