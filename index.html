@@ -68,7 +68,7 @@ a{
 
 <body>
 
-<h1>🤖 My JARVIS</h1>
+<h1>ðŸ¤– My JARVIS</h1>
 
 <div class="card">
 <h2>1. Google Login</h2>
@@ -104,7 +104,7 @@ Save Folder ID
 </button>
 
 <button onclick="listFiles()">
-Drive में Files देखें
+Drive à¤®à¥‡à¤‚ Files à¤¦à¥‡à¤–à¥‡à¤‚
 </button>
 
 <div id="fileList"></div>
@@ -114,15 +114,15 @@ Drive में Files देखें
 
 <div class="card">
 
-<h2>3. 🔎 File Search</h2>
+<h2>3. ðŸ”Ž File Search</h2>
 
 <input
   id="searchText"
-  placeholder="File का नाम लिखें..."
+  placeholder="File à¤•à¤¾ à¤¨à¤¾à¤® à¤²à¤¿à¤–à¥‡à¤‚..."
 >
 
 <button onclick="searchFiles()">
-🔎 Search
+ðŸ”Ž Search
 </button>
 
 <div id="searchStatus" class="status"></div>
@@ -142,7 +142,7 @@ Drive में Files देखें
 >
 
 <button onclick="uploadFile()">
-JARVIS_DATA में Upload करें
+JARVIS_DATA à¤®à¥‡à¤‚ Upload à¤•à¤°à¥‡à¤‚
 </button>
 
 <div id="uploadStatus" class="status"></div>
@@ -157,11 +157,11 @@ JARVIS_DATA में Upload करें
 <textarea
   id="noteText"
   rows="6"
-  placeholder="अपना note यहाँ लिखें..."
+  placeholder="à¤…à¤ªà¤¨à¤¾ note à¤¯à¤¹à¤¾à¤ à¤²à¤¿à¤–à¥‡à¤‚..."
 ></textarea>
 
 <button onclick="saveNote()">
-Note Drive में Save करें
+Note Drive à¤®à¥‡à¤‚ Save à¤•à¤°à¥‡à¤‚
 </button>
 
 <div id="noteStatus" class="status"></div>
@@ -171,10 +171,10 @@ Note Drive में Save करें
 
 <div class="card">
 
-<h2>6. 🎤 Voice JARVIS</h2>
+<h2>6. ðŸŽ¤ Voice JARVIS</h2>
 
 <button onclick="startVoiceJARVIS()">
-🎤 बोलकर File खोजें
+ðŸŽ¤ à¤¬à¥‹à¤²à¤•à¤° File à¤–à¥‹à¤œà¥‡à¤‚
 </button>
 
 <div id="voiceStatus" class="status"></div>
@@ -227,7 +227,7 @@ function saveClientId(){
 
     status(
       "loginStatus",
-      "पहले Client ID डालें।"
+      "à¤ªà¤¹à¤²à¥‡ Client ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -240,7 +240,7 @@ function saveClientId(){
 
   status(
     "loginStatus",
-    "Client ID save हो गया ✅"
+    "Client ID save à¤¹à¥‹ à¤—à¤¯à¤¾ âœ…"
   );
 
 }
@@ -258,7 +258,7 @@ function saveFolderId(){
 
     status(
       "loginStatus",
-      "पहले Folder ID डालें।"
+      "à¤ªà¤¹à¤²à¥‡ Folder ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -271,7 +271,7 @@ function saveFolderId(){
 
   status(
     "loginStatus",
-    "JARVIS_DATA Folder ID save हो गई ✅"
+    "JARVIS_DATA Folder ID save à¤¹à¥‹ à¤—à¤ˆ âœ…"
   );
 
 }
@@ -289,7 +289,7 @@ function googleLogin(){
 
     status(
       "loginStatus",
-      "पहले Google OAuth Client ID डालें।"
+      "à¤ªà¤¹à¤²à¥‡ Google OAuth Client ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -299,7 +299,7 @@ function googleLogin(){
 
     status(
       "loginStatus",
-      "Google Login load हो रहा है।"
+      "Google Login load à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆà¥¤"
     );
 
     return;
@@ -330,7 +330,7 @@ function googleLogin(){
 
         status(
           "loginStatus",
-          "Google Login सफल ✅"
+          "Google Login à¤¸à¤«à¤² âœ…"
         );
 
         listFiles();
@@ -357,7 +357,7 @@ async function driveRequest(
   if(!accessToken){
 
     throw new Error(
-      "पहले Google Login करें।"
+      "à¤ªà¤¹à¤²à¥‡ Google Login à¤•à¤°à¥‡à¤‚à¥¤"
     );
 
   }
@@ -440,7 +440,7 @@ function fileHtml(file){
       target="_blank"
       rel="noopener"
     >
-      📂 Drive में खोलें
+      ðŸ“‚ Drive à¤®à¥‡à¤‚ à¤–à¥‹à¤²à¥‡à¤‚
     </a>
 
   </div>
@@ -465,7 +465,7 @@ async function listFiles(){
       document
         .getElementById("fileList")
         .textContent =
-        "पहले JARVIS_DATA Folder ID डालें।";
+        "à¤ªà¤¹à¤²à¥‡ JARVIS_DATA Folder ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤";
 
       return;
     }
@@ -512,7 +512,7 @@ async function listFiles(){
     ){
 
       list.innerHTML =
-        "<p>JARVIS_DATA folder खाली है।</p>";
+        "<p>JARVIS_DATA folder à¤–à¤¾à¤²à¥€ à¤¹à¥ˆà¥¤</p>";
 
       return;
     }
@@ -556,7 +556,7 @@ async function searchFiles(){
 
     status(
       "searchStatus",
-      "पहले file का नाम लिखें।"
+      "à¤ªà¤¹à¤²à¥‡ file à¤•à¤¾ à¤¨à¤¾à¤® à¤²à¤¿à¤–à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -567,7 +567,7 @@ async function searchFiles(){
 
     status(
       "searchStatus",
-      "पहले Folder ID डालें।"
+      "à¤ªà¤¹à¤²à¥‡ Folder ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -578,7 +578,7 @@ async function searchFiles(){
 
     status(
       "searchStatus",
-      "पहले Google Login करें।"
+      "à¤ªà¤¹à¤²à¥‡ Google Login à¤•à¤°à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -630,8 +630,8 @@ async function searchFiles(){
       "searchStatus",
 
       files.length
-      ? "✅ " + files.length + " file मिली।"
-      : "❌ कोई file नहीं मिली।"
+      ? "âœ… " + files.length + " file à¤®à¤¿à¤²à¥€à¥¤"
+      : "âŒ à¤•à¥‹à¤ˆ file à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¥€à¥¤"
 
     );
 
@@ -675,7 +675,7 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "पहले कोई file चुनें।"
+      "à¤ªà¤¹à¤²à¥‡ à¤•à¥‹à¤ˆ file à¤šà¥à¤¨à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -686,7 +686,7 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "पहले Folder ID डालें।"
+      "à¤ªà¤¹à¤²à¥‡ Folder ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -765,7 +765,7 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "File successfully upload हो गई ✅"
+      "File successfully upload à¤¹à¥‹ à¤—à¤ˆ âœ…"
     );
 
 
@@ -810,7 +810,7 @@ async function saveNote(){
 
     status(
       "noteStatus",
-      "पहले note लिखें।"
+      "à¤ªà¤¹à¤²à¥‡ note à¤²à¤¿à¤–à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -821,7 +821,7 @@ async function saveNote(){
 
     status(
       "noteStatus",
-      "पहले Folder ID डालें।"
+      "à¤ªà¤¹à¤²à¥‡ Folder ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤"
     );
 
     return;
@@ -905,7 +905,7 @@ async function saveNote(){
 
     status(
       "noteStatus",
-      "Note Drive में save हो गया ✅"
+      "Note Drive à¤®à¥‡à¤‚ save à¤¹à¥‹ à¤—à¤¯à¤¾ âœ…"
     );
 
 
@@ -927,49 +927,37 @@ async function saveNote(){
 
 
 /* VOICE JARVIS */
-
 function startVoiceJARVIS(){
-
   const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
 
-
   if(!SpeechRecognition){
-
     status(
       "voiceStatus",
-      "Chrome में Voice Search चलाएँ।"
+      "Chrome à¤®à¥‡à¤‚ Voice Search à¤šà¤²à¤¾à¤à¤à¥¤"
     );
-
     return;
   }
-
 
   const recognition =
     new SpeechRecognition();
 
-
   recognition.lang =
     "hi-IN";
-
 
   recognition.continuous =
     false;
 
-
   recognition.interimResults =
     false;
 
-
   status(
     "voiceStatus",
-    "🎤 सुन रहा हूँ... File का नाम बोलिए।"
+    "ðŸŽ¤ à¤¸à¥à¤¨ à¤°à¤¹à¤¾ à¤¹à¥‚à¤... File à¤¯à¤¾ command à¤¬à¥‹à¤²à¤¿à¤à¥¤"
   );
 
-
   recognition.start();
-
 
   recognition.onresult =
   function(event){
@@ -980,167 +968,267 @@ function startVoiceJARVIS(){
       .transcript
       .trim();
 
-
     status(
       "voiceStatus",
-      "आपने कहा: " + text
+      "à¤†à¤ªà¤¨à¥‡ à¤•à¤¹à¤¾: " + text
     );
 
+    /*
+      VOICE COMMAND EXAMPLES
 
-    const term =
-      text
+      "à¤¸à¥à¤•à¥à¤°à¥€à¤¨à¤¶à¥‰à¤Ÿ à¤¢à¥‚à¤‚à¤¢à¥‹"
+      "à¤¸à¥à¤•à¥à¤°à¥€à¤¨à¤¶à¥‰à¤Ÿ à¤¨à¤¾à¤® à¤•à¥€ à¤«à¤¾à¤‡à¤² à¤–à¥‹à¤œà¥‹"
+      "Screenshot à¤µà¤¾à¤²à¥€ file à¤–à¥‹à¤²à¥‹"
+      "WhatsApp à¤µà¤¾à¤²à¥€ à¤«à¥‹à¤Ÿà¥‹ à¤–à¥‹à¤²à¥‹"
+      "à¤†à¤œ à¤µà¤¾à¤²à¥€ à¤«à¥‹à¤Ÿà¥‹ à¤–à¥‹à¤œà¥‹"
+      "à¤†à¤œ à¤•à¥€ à¤«à¤¾à¤‡à¤²à¥‡à¤‚ à¤¦à¤¿à¤–à¤¾à¤“"
+      "Jarvis à¤¸à¥à¤•à¥à¤°à¥€à¤¨à¤¶à¥‰à¤Ÿ à¤–à¥‹à¤²à¥‹"
+    */
+
+    let command = text
+      .replace(/^à¤œà¤¾à¤°à¥à¤µà¤¿à¤¸[\s,]*/i, "")
+      .replace(/^jarvis[\s,]*/i, "")
+      .trim();
+
+    const lower = command.toLowerCase();
+
+    const todayCommand =
+      /à¤†à¤œ|today/i.test(command);
+
+    const imageCommand =
+      /à¤«à¥‹à¤Ÿà¥‹|photo|image|à¤‡à¤®à¥‡à¤œ|à¤¤à¤¸à¥à¤µà¥€à¤°|picture|à¤šà¤¿à¤¤à¥à¤°/i.test(command);
+
+    const openCommand =
+      /à¤–à¥‹à¤²à¥‹|à¤–à¥‹à¤²à¤¨à¤¾|à¤–à¥‹à¤²à¥‡à¤‚|open|à¤¦à¤¿à¤–à¤¾à¤“|à¤¦à¤¿à¤–à¤¾à¤¨à¤¾|show/i.test(command);
+
+    /*
+      Search words à¤¹à¤Ÿà¤¾à¤à¤à¥¤
+      "à¤¸à¥à¤•à¥à¤°à¥€à¤¨à¤¶à¥‰à¤Ÿ à¤¨à¤¾à¤® à¤•à¥€ à¤«à¤¾à¤‡à¤² à¤–à¥‹à¤œà¥‹"
+      -> "à¤¸à¥à¤•à¥à¤°à¥€à¤¨à¤¶à¥‰à¤Ÿ"
+    */
+    let term = command
       .replace(
-        /फाइल|फ़ाइल|file|खोलो|खोलना|खोलें|ढूंढो|ढूँढो|सर्च|search|वाली|वाला|वाले|को/gi,
+        /à¤«à¤¾à¤‡à¤²|à¤«à¤¼à¤¾à¤‡à¤²|file|à¤–à¥‹à¤²à¥‹|à¤–à¥‹à¤²à¤¨à¤¾|à¤–à¥‹à¤²à¥‡à¤‚|open|à¤¦à¤¿à¤–à¤¾à¤“|à¤¦à¤¿à¤–à¤¾à¤¨à¤¾|show|à¤¢à¥‚à¤‚à¤¢à¥‹|à¤¢à¥‚à¤à¤¢à¥‹|à¤¢à¥‚à¤‚à¤¢à¤¨à¤¾|à¤¢à¥‚à¤à¤¢à¤¨à¤¾|à¤–à¥‹à¤œà¥‹|à¤–à¥‹à¤œà¤¨à¤¾|à¤–à¥‹à¤œà¥‡à¤‚|à¤¸à¤°à¥à¤š|search|à¤µà¤¾à¤²à¥€|à¤µà¤¾à¤²à¤¾|à¤µà¤¾à¤²à¥‡|à¤µà¤¾à¤²à¥€\s*à¤•à¥€|à¤¨à¤¾à¤®|à¤•à¥€|à¤•à¤¾|à¤•à¥‡|à¤¹à¥ˆ|à¤¹à¥ˆà¤‚|à¤•à¥ƒà¤ªà¤¯à¤¾|à¤šà¤¾à¤¹à¤¿à¤|à¤®à¥à¤à¥‡|à¤à¤•|à¤¦à¥‡à¤‚|à¤¦à¥‹|à¤•à¤°à¥‹|à¤•à¤°à¤¨à¤¾|à¤•à¤°à¥‡à¤‚/gi,
         " "
+      )
+      .replace(
+        /à¤¸à¥à¤•à¥à¤°à¥€à¤¨\s*à¤¶à¥‰à¤Ÿ/gi,
+        "à¤¸à¥à¤•à¥à¤°à¥€à¤¨à¤¶à¥‰à¤Ÿ"
       )
       .replace(/\s+/g," ")
       .trim();
 
+    /*
+      à¤…à¤—à¤° command à¤¸à¤¿à¤°à¥à¤« "à¤†à¤œ à¤•à¥€ à¤«à¥‹à¤Ÿà¥‹" à¤¹à¥ˆ,
+      à¤¤à¥‹ "à¤†à¤œ" à¤”à¤° "à¤«à¥‹à¤Ÿà¥‹" search term à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹à¤‚à¤—à¥‡à¥¤
+    */
+    if(todayCommand){
+      term = term
+        .replace(/à¤†à¤œ|today/gi," ")
+        .replace(
+          /à¤«à¥‹à¤Ÿà¥‹|photo|image|à¤‡à¤®à¥‡à¤œ|à¤¤à¤¸à¥à¤µà¥€à¤°|picture|à¤šà¤¿à¤¤à¥à¤°/gi,
+          " "
+        )
+        .replace(/\s+/g," ")
+        .trim();
+    }
 
-    if(!term){
-
+    if(!term && !todayCommand){
       status(
         "voiceStatus",
-        "❌ File का नाम समझ नहीं आया।"
+        "âŒ File à¤•à¤¾ à¤¨à¤¾à¤® à¤¸à¤®à¤ à¤¨à¤¹à¥€à¤‚ à¤†à¤¯à¤¾à¥¤"
       );
-
       return;
     }
 
-
     document
       .getElementById("searchText")
-      .value=term;
+      .value = term;
 
-
-    voiceSearch(term);
-
+    voiceSearch(
+      term,
+      {
+        today: todayCommand,
+        imageOnly: imageCommand,
+        autoOpen: openCommand
+      }
+    );
   };
-
 
   recognition.onerror =
   function(event){
-
     status(
       "voiceStatus",
       "Voice Error: " +
       event.error
     );
-
   };
-
 }
 
 
 /* VOICE SEARCH */
-
-async function voiceSearch(term){
-
+async function voiceSearch(
+  term,
+  options={}
+){
   const folderId =
     folder();
 
-
   if(!folderId){
-
     status(
       "voiceStatus",
-      "पहले Folder ID डालें।"
+      "à¤ªà¤¹à¤²à¥‡ Folder ID à¤¡à¤¾à¤²à¥‡à¤‚à¥¤"
     );
-
     return;
   }
-
 
   if(!accessToken){
-
     status(
       "voiceStatus",
-      "पहले Google Login करें।"
+      "à¤ªà¤¹à¤²à¥‡ Google Login à¤•à¤°à¥‡à¤‚à¥¤"
     );
-
     return;
   }
-
 
   try{
 
-    const safeTerm =
-      term.replace(/'/g,"\\'");
-
-
-    const query =
+    /*
+      Voice commands à¤•à¥‡ à¤²à¤¿à¤ à¤ªà¤¹à¤²à¥‡ folder à¤•à¥€ files
+      à¤²à¤¾à¤¤à¥‡ à¤¹à¥ˆà¤‚ à¤¤à¤¾à¤•à¤¿ "à¤†à¤œ à¤µà¤¾à¤²à¥€ à¤«à¥‹à¤Ÿà¥‹" à¤œà¥ˆà¤¸à¥‡ commands à¤­à¥€ à¤šà¤²à¥‡à¤‚à¥¤
+    */
+    let query =
       "'" +
       folderId +
-      "' in parents and trashed=false and name contains '" +
-      safeTerm +
-      "'";
+      "' in parents and trashed=false";
 
+    if(term){
+      const safeTerm =
+        term.replace(/'/g,"\\'");
+
+      query +=
+        " and name contains '" +
+        safeTerm +
+        "'";
+    }
 
     const url =
       "https://www.googleapis.com/drive/v3/files?"
       +
       new URLSearchParams({
-
         q:query,
-
         fields:
-        "files(id,name,mimeType)",
-
-        pageSize:"20"
-
+          "files(id,name,mimeType,modifiedTime)",
+        pageSize:"100",
+        orderBy:"modifiedTime desc"
       });
-
 
     const response =
       await driveRequest(url);
 
-
     const data =
       await response.json();
 
-
-    const files =
+    let files =
       data.files || [];
 
+    /*
+      "à¤†à¤œ à¤µà¤¾à¤²à¥€ à¤«à¥‹à¤Ÿà¥‹" / "à¤†à¤œ à¤•à¥€ à¤«à¥‹à¤Ÿà¥‹"
+      à¤•à¥‡ à¤²à¤¿à¤ à¤†à¤œ à¤•à¥€ modified files à¤¹à¥€ à¤°à¤–à¥‡à¤‚à¥¤
+    */
+    if(options.today){
+
+      const now = new Date();
+
+      const startOfToday =
+        new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate()
+        );
+
+      files =
+        files.filter(function(file){
+
+          if(!file.modifiedTime){
+            return false;
+          }
+
+          const modified =
+            new Date(file.modifiedTime);
+
+          return modified >= startOfToday;
+        });
+    }
+
+    /*
+      "WhatsApp à¤µà¤¾à¤²à¥€ à¤«à¥‹à¤Ÿà¥‹"
+      à¤œà¥ˆà¤¸à¥‡ command à¤®à¥‡à¤‚ à¤¸à¤¿à¤°à¥à¤« image files à¤°à¤–à¥‡à¤‚à¥¤
+    */
+    if(options.imageOnly){
+
+      files =
+        files.filter(function(file){
+
+          return String(
+            file.mimeType || ""
+          ).startsWith("image/");
+        });
+    }
 
     if(!files.length){
 
+      let message =
+        "âŒ à¤•à¥‹à¤ˆ file à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¥€à¥¤";
+
+      if(term){
+        message =
+          "âŒ '" +
+          term +
+          "' à¤¨à¤¾à¤® à¤•à¥€ file à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¥€à¥¤";
+      }else if(options.today){
+        message =
+          "âŒ à¤†à¤œ à¤•à¥€ à¤•à¥‹à¤ˆ file à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¥€à¥¤";
+      }
+
       status(
         "voiceStatus",
-        "❌ '" +
-        term +
-        "' नाम की file नहीं मिली।"
+        message
       );
+
+      document
+        .getElementById("searchResults")
+        .innerHTML = "";
 
       return;
     }
 
-
     status(
       "voiceStatus",
-      "✅ " +
+      "âœ… " +
       files.length +
-      " file मिली।"
+      " file à¤®à¤¿à¤²à¥€à¥¤"
     );
-
 
     document
       .getElementById("searchResults")
       .innerHTML =
       files.map(fileHtml).join("");
 
-
-    if(files.length === 1){
-
+    /*
+      à¤…à¤—à¤° à¤¬à¥‹à¤²à¤¨à¥‡ à¤®à¥‡à¤‚ "à¤–à¥‹à¤²à¥‹ / open" à¤•à¤¹à¤¾ à¤¹à¥ˆ
+      à¤”à¤° à¤¸à¤¿à¤°à¥à¤« 1 file à¤®à¤¿à¤²à¥€ à¤¹à¥ˆ à¤¤à¥‹ à¤‰à¤¸à¥‡ à¤–à¥‹à¤²à¥‡à¤‚à¥¤
+    */
+    if(
+      options.autoOpen &&
+      files.length === 1
+    ){
       window.open(
         driveLink(files[0].id),
         "_blank"
       );
-
     }
 
   }
-
   catch(error){
 
     status(
@@ -1148,11 +1236,8 @@ async function voiceSearch(term){
       "Voice Search Error: " +
       error.message
     );
-
   }
-
 }
-
 
 /* HTML SECURITY */
 
