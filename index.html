@@ -2,73 +2,60 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>My JARVIS</title>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  padding:20px;
   font-family:Arial,sans-serif;
+  max-width:900px;
+  margin:auto;
+  padding:20px;
   background:#f4f7fb;
   color:#172033;
 }
 
-.container{
-  max-width:900px;
-  margin:auto;
-}
-
 h1{
   text-align:center;
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
 
 .card{
   background:white;
   padding:20px;
-  margin:18px 0;
-  border-radius:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  margin:15px 0;
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-h2{
-  margin-top:0;
-}
-
-h3{
-  margin-top:20px;
-}
-
-input,
-textarea{
+input,textarea{
   width:100%;
-  padding:13px;
+  padding:12px;
   margin:7px 0;
   border:1px solid #ccd3df;
-  border-radius:9px;
-  font-size:16px;
+  border-radius:8px;
+  font-size:15px;
 }
 
 textarea{
+  min-height:130px;
   resize:vertical;
 }
 
 button{
-  padding:12px 18px;
-  margin:6px 4px 6px 0;
-  border:none;
-  border-radius:9px;
+  padding:11px 16px;
+  margin:5px 3px;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
   background:#1769e0;
   color:white;
-  font-size:15px;
-  cursor:pointer;
+  font-size:14px;
 }
 
 button:hover{
@@ -78,15 +65,12 @@ button:hover{
 .status{
   margin-top:10px;
   font-weight:bold;
+  line-height:1.5;
 }
 
 .file{
-  padding:14px 0;
-  border-bottom:1px solid #e5e7eb;
-}
-
-.file:last-child{
-  border-bottom:none;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
 }
 
 .small{
@@ -96,23 +80,23 @@ button:hover{
 
 a{
   color:#1769e0;
-  text-decoration:underline;
 }
 
 .noteBox{
   background:#f8fafc;
-  padding:14px;
+  padding:12px;
+  border-radius:8px;
   margin-top:8px;
-  border-radius:9px;
   white-space:pre-wrap;
-  word-break:break-word;
+  line-height:1.5;
 }
 
-.voiceHelp{
+.example{
   background:#f8fafc;
-  padding:14px;
-  border-radius:10px;
-  line-height:1.7;
+  padding:12px;
+  border-radius:8px;
+  line-height:1.8;
+  margin-top:10px;
 }
 
 .success{
@@ -122,21 +106,17 @@ a{
 .error{
   color:red;
 }
-
 </style>
 </head>
 
-
 <body>
-
-<div class="container">
 
 <h1>🤖 My JARVIS</h1>
 
 
-<!-- ============================= -->
-<!-- GOOGLE LOGIN -->
-<!-- ============================= -->
+<!-- =========================
+     GOOGLE LOGIN
+========================= -->
 
 <div class="card">
 
@@ -144,28 +124,26 @@ a{
 
 <input
   id="clientId"
+  value="806255243202-3ijvpge3h2ero76f5k9s0sdhc96ds59u.apps.googleusercontent.com"
   placeholder="Google OAuth Client ID"
 >
 
 <button onclick="saveClientId()">
-  Client ID Save करें
+Client ID Save करें
 </button>
 
 <button onclick="googleLogin()">
-  Google Login
+Google Login
 </button>
 
-<div
-  id="loginStatus"
-  class="status"
-></div>
+<div id="loginStatus" class="status"></div>
 
 </div>
 
 
-<!-- ============================= -->
-<!-- DRIVE -->
-<!-- ============================= -->
+<!-- =========================
+     JARVIS DATA
+========================= -->
 
 <div class="card">
 
@@ -173,15 +151,16 @@ a{
 
 <input
   id="folderId"
+  value="1_yqJoEuNIecq_rTkS-AwfEQPcptIc3mN"
   placeholder="JARVIS_DATA Folder ID"
 >
 
 <button onclick="saveFolderId()">
-  Folder ID Save करें
+Folder ID Save करें
 </button>
 
 <button onclick="listFiles()">
-  Drive में Files देखें
+Drive में Files देखें
 </button>
 
 <div id="fileList"></div>
@@ -189,9 +168,9 @@ a{
 </div>
 
 
-<!-- ============================= -->
-<!-- FILE SEARCH -->
-<!-- ============================= -->
+<!-- =========================
+     FILE SEARCH
+========================= -->
 
 <div class="card">
 
@@ -203,22 +182,19 @@ a{
 >
 
 <button onclick="searchFiles()">
-  🔎 Search
+🔎 Search
 </button>
 
-<div
-  id="searchStatus"
-  class="status"
-></div>
+<div id="searchStatus" class="status"></div>
 
 <div id="searchResults"></div>
 
 </div>
 
 
-<!-- ============================= -->
-<!-- FILE UPLOAD -->
-<!-- ============================= -->
+<!-- =========================
+     FILE UPLOAD
+========================= -->
 
 <div class="card">
 
@@ -230,20 +206,17 @@ a{
 >
 
 <button onclick="uploadFile()">
-  JARVIS_DATA में Upload करें
+JARVIS_DATA में Upload करें
 </button>
 
-<div
-  id="uploadStatus"
-  class="status"
-></div>
+<div id="uploadStatus" class="status"></div>
 
 </div>
 
 
-<!-- ============================= -->
-<!-- NOTES -->
-<!-- ============================= -->
+<!-- =========================
+     NOTES
+========================= -->
 
 <div class="card">
 
@@ -251,22 +224,16 @@ a{
 
 <textarea
   id="noteText"
-  rows="6"
   placeholder="अपना note यहाँ लिखें..."
 ></textarea>
 
 <button onclick="saveNote()">
-  Note Drive में Save करें
+Note Drive में Save करें
 </button>
 
-<div
-  id="noteStatus"
-  class="status"
-></div>
-
+<div id="noteStatus" class="status"></div>
 
 <hr>
-
 
 <h3>🔎 Notes Search</h3>
 
@@ -276,70 +243,49 @@ a{
 >
 
 <button onclick="searchNotes()">
-  🔎 Note Search
+🔎 Note Search
 </button>
 
-<div
-  id="noteSearchStatus"
-  class="status"
-></div>
+<div id="noteSearchStatus" class="status"></div>
 
 <div id="noteSearchResults"></div>
 
 </div>
 
 
-<!-- ============================= -->
-<!-- VOICE JARVIS -->
-<!-- ============================= -->
+<!-- =========================
+     VOICE JARVIS
+========================= -->
 
 <div class="card">
 
 <h2>6. 🎤 Voice JARVIS</h2>
 
 <button onclick="startVoiceJARVIS()">
-  🎤 बोलकर File/Note खोजें
+🎤 बोलकर File/Note खोजें
 </button>
 
-<div
-  id="voiceStatus"
-  class="status"
-></div>
+<div id="voiceStatus" class="status"></div>
 
+<div class="example">
 
-<div class="voiceHelp">
+<b>उदाहरण:</b><br>
 
-<b>उदाहरण:</b>
+🎤 "Jarvis Screenshot खोजो"<br>
 
-<br><br>
+🎤 "Jarvis स्क्रीनशॉट खोजो"<br>
 
-🎤 "Jarvis Screenshot खोजो"
+🎤 "Jarvis screen shot खोजो"<br>
 
-<br>
+🎤 "Jarvis PDF खोजो"<br>
 
-🎤 "Jarvis स्क्रीनशॉट खोजो"
+🎤 "Jarvis photo खोजो"<br>
 
-<br>
+🎤 "Jarvis आज की files दिखाओ"<br>
 
-🎤 "Jarvis फोटो खोजो"
+🎤 "Jarvis Notes में PF खोजो"<br>
 
-<br>
-
-🎤 "Jarvis आज की फोटो खोजो"
-
-<br>
-
-🎤 "Jarvis PF खोजो"
-
-<br>
-
-🎤 "Jarvis Notes में PF खोजो"
-
-<br>
-
-🎤 "Jarvis नोट्स में पीएफ खोजो"
-
-<br>
+🎤 "Jarvis नोट्स में Vishal खोजो"<br>
 
 🎤 "Jarvis Screenshot खोलो"
 
@@ -347,60 +293,52 @@ a{
 
 </div>
 
-</div>
-
-
-<!-- GOOGLE LOGIN SCRIPT -->
 
 <script src="https://accounts.google.com/gsi/client"
-async
-defer>
-</script>
+async defer></script>
 
 
 <script>
 
-/* =========================================================
+/* =====================================================
    BASIC SETTINGS
-========================================================= */
+===================================================== */
 
 const DRIVE_SCOPE =
-  "https://www.googleapis.com/auth/drive";
+"https://www.googleapis.com/auth/drive";
 
 let accessToken = null;
-
 let tokenClient = null;
 
 
-/* =========================================================
+/* =====================================================
    PAGE LOAD
-========================================================= */
+===================================================== */
 
-window.addEventListener(
-  "load",
-  function(){
+window.addEventListener("load",function(){
 
-    document.getElementById(
-      "clientId"
-    ).value =
-      localStorage.getItem(
-        "jarvisClientId"
-      ) || "";
+  const savedClientId =
+    localStorage.getItem("jarvisClientId");
 
-    document.getElementById(
-      "folderId"
-    ).value =
-      localStorage.getItem(
-        "jarvisFolderId"
-      ) || "";
+  const savedFolderId =
+    localStorage.getItem("jarvisFolderId");
 
+  if(savedClientId){
+    document.getElementById("clientId").value =
+      savedClientId;
   }
-);
+
+  if(savedFolderId){
+    document.getElementById("folderId").value =
+      savedFolderId;
+  }
+
+});
 
 
-/* =========================================================
+/* =====================================================
    STATUS
-========================================================= */
+===================================================== */
 
 function status(id,msg){
 
@@ -414,23 +352,22 @@ function status(id,msg){
 }
 
 
-/* =========================================================
+/* =====================================================
    SAVE CLIENT ID
-========================================================= */
+===================================================== */
 
 function saveClientId(){
 
   const value =
-    document
-      .getElementById("clientId")
-      .value
-      .trim();
+    document.getElementById("clientId")
+    .value
+    .trim();
 
   if(!value){
 
     status(
       "loginStatus",
-      "पहले Client ID डालें।"
+      "❌ पहले Client ID डालें।"
     );
 
     return;
@@ -443,29 +380,28 @@ function saveClientId(){
 
   status(
     "loginStatus",
-    "Client ID save हो गया ✅"
+    "✅ Client ID successfully save हो गई।"
   );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    SAVE FOLDER ID
-========================================================= */
+===================================================== */
 
 function saveFolderId(){
 
   const value =
-    document
-      .getElementById("folderId")
-      .value
-      .trim();
+    document.getElementById("folderId")
+    .value
+    .trim();
 
   if(!value){
 
     status(
       "loginStatus",
-      "पहले Folder ID डालें।"
+      "❌ पहले Folder ID डालें।"
     );
 
     return;
@@ -478,40 +414,45 @@ function saveFolderId(){
 
   status(
     "loginStatus",
-    "JARVIS_DATA Folder ID save हो गई ✅"
+    "✅ JARVIS_DATA Folder ID save हो गई।"
   );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    GOOGLE LOGIN
-========================================================= */
+===================================================== */
 
 function googleLogin(){
 
   const id =
-    document
-      .getElementById("clientId")
-      .value
-      .trim();
+    document.getElementById("clientId")
+    .value
+    .trim();
 
   if(!id){
 
     status(
       "loginStatus",
-      "पहले Google OAuth Client ID डालें।"
+      "❌ पहले Google OAuth Client ID डालें।"
     );
 
     return;
   }
 
 
+  localStorage.setItem(
+    "jarvisClientId",
+    id
+  );
+
+
   if(!window.google){
 
     status(
       "loginStatus",
-      "Google Login load हो रहा है। कुछ सेकंड बाद फिर दबाएँ।"
+      "⏳ Google Login load हो रहा है। कुछ सेकंड बाद फिर दबाएँ।"
     );
 
     return;
@@ -531,20 +472,23 @@ function googleLogin(){
 
           status(
             "loginStatus",
-            "Google Login Error: " +
+            "❌ Google Login Error: " +
             response.error
           );
 
           return;
         }
 
+
         accessToken =
           response.access_token;
 
+
         status(
           "loginStatus",
-          "Google Login सफल ✅"
+          "✅ Google Login सफल हो गया।"
         );
+
 
         listFiles();
 
@@ -560,9 +504,9 @@ function googleLogin(){
 }
 
 
-/* =========================================================
+/* =====================================================
    DRIVE REQUEST
-========================================================= */
+===================================================== */
 
 async function driveRequest(
   url,
@@ -580,19 +524,19 @@ async function driveRequest(
 
   options.headers =
     Object.assign(
+
       {
         "Authorization":
-          "Bearer " + accessToken
+        "Bearer " + accessToken
       },
+
       options.headers || {}
+
     );
 
 
   const response =
-    await fetch(
-      url,
-      options
-    );
+    await fetch(url,options);
 
 
   if(!response.ok){
@@ -601,10 +545,12 @@ async function driveRequest(
       "Drive Error";
 
     try{
+
       errorText =
         await response.text();
-    }
-    catch(e){}
+
+    }catch(e){}
+
 
     throw new Error(
       errorText
@@ -618,9 +564,9 @@ async function driveRequest(
 }
 
 
-/* =========================================================
+/* =====================================================
    FOLDER
-========================================================= */
+===================================================== */
 
 function folder(){
 
@@ -632,24 +578,22 @@ function folder(){
 }
 
 
-/* =========================================================
+/* =====================================================
    DRIVE LINK
-========================================================= */
+===================================================== */
 
 function driveLink(id){
 
-  return (
-    "https://drive.google.com/file/d/" +
+  return "https://drive.google.com/file/d/" +
     encodeURIComponent(id) +
-    "/view"
-  );
+    "/view";
 
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
 
 function esc(text){
 
@@ -659,11 +603,13 @@ function esc(text){
       function(c){
 
         return {
+
           "&":"&amp;",
           "<":"&lt;",
           ">":"&gt;",
           '"':"&quot;",
           "'":"&#039;"
+
         }[c];
 
       }
@@ -672,9 +618,9 @@ function esc(text){
 }
 
 
-/* =========================================================
+/* =====================================================
    FILE HTML
-========================================================= */
+===================================================== */
 
 function fileHtml(file){
 
@@ -692,15 +638,6 @@ function fileHtml(file){
 
     <br>
 
-    <span class="small">
-      ${file.modifiedTime
-        ? new Date(file.modifiedTime)
-            .toLocaleString("hi-IN")
-        : ""}
-    </span>
-
-    <br><br>
-
     <a
       href="${driveLink(file.id)}"
       target="_blank"
@@ -716,9 +653,9 @@ function fileHtml(file){
 }
 
 
-/* =========================================================
+/* =====================================================
    LIST FILES
-========================================================= */
+===================================================== */
 
 async function listFiles(){
 
@@ -727,14 +664,16 @@ async function listFiles(){
     const folderId =
       folder();
 
+
     if(!folderId){
 
-      document.getElementById(
-        "fileList"
-      ).textContent =
+      document
+        .getElementById("fileList")
+        .textContent =
         "पहले JARVIS_DATA Folder ID डालें।";
 
       return;
+
     }
 
 
@@ -746,50 +685,61 @@ async function listFiles(){
 
     const url =
       "https://www.googleapis.com/drive/v3/files?" +
+
       new URLSearchParams({
 
         q:q,
 
         fields:
-          "files(id,name,mimeType,modifiedTime)",
+        "files(id,name,mimeType,modifiedTime)",
 
         pageSize:"100",
 
         orderBy:
-          "modifiedTime desc"
+        "modifiedTime desc"
 
       });
 
 
+    const response =
+      await driveRequest(url);
+
+
     const data =
-      await (
-        await driveRequest(url)
-      ).json();
+      await response.json();
 
 
     const files =
       data.files || [];
 
 
-    document.getElementById(
-      "fileList"
-    ).innerHTML =
+    document
+      .getElementById("fileList")
+      .innerHTML =
 
       files.length
 
-        ? files
-            .map(fileHtml)
-            .join("")
+      ?
 
-        : "<p>JARVIS_DATA folder खाली है।</p>";
+      "<p>✅ " +
+      files.length +
+      " files मिलीं।</p>" +
 
-  }
-  catch(error){
+      files
+        .map(fileHtml)
+        .join("")
 
-    document.getElementById(
-      "fileList"
-    ).textContent =
-      "Error: " +
+      :
+
+      "<p>JARVIS_DATA folder खाली है।</p>";
+
+
+  }catch(error){
+
+    document
+      .getElementById("fileList")
+      .textContent =
+      "❌ Error: " +
       error.message;
 
   }
@@ -797,194 +747,36 @@ async function listFiles(){
 }
 
 
-/* =========================================================
+/* =====================================================
    TEXT NORMALIZATION
-========================================================= */
+===================================================== */
 
 function normalizeText(text){
 
   return String(text || "")
+
     .toLowerCase()
+
     .normalize("NFKC")
+
     .replace(
       /[।,!?;:()[\]{}"'`]/g,
       " "
     )
+
     .replace(
       /\s+/g,
       " "
     )
+
     .trim();
 
 }
 
 
-/* =========================================================
-   HINDI ↔ ENGLISH DICTIONARY
-========================================================= */
-
-const bilingualMap = {
-
-  "स्क्रीनशॉट":[
-    "स्क्रीनशॉट",
-    "स्क्रीन शॉट",
-    "screenshot",
-    "screenshots"
-  ],
-
-  "स्क्रीन शॉट":[
-    "स्क्रीनशॉट",
-    "स्क्रीन शॉट",
-    "screenshot",
-    "screenshots"
-  ],
-
-  "फोटो":[
-    "फोटो",
-    "photo",
-    "photos",
-    "image",
-    "images",
-    "picture",
-    "pictures"
-  ],
-
-  "तस्वीर":[
-    "तस्वीर",
-    "तस्वीरें",
-    "photo",
-    "photos",
-    "image",
-    "images",
-    "picture",
-    "pictures"
-  ],
-
-  "तस्वीरें":[
-    "तस्वीर",
-    "तस्वीरें",
-    "photo",
-    "photos",
-    "image",
-    "images"
-  ],
-
-  "इमेज":[
-    "इमेज",
-    "image",
-    "images",
-    "photo",
-    "photos"
-  ],
-
-  "चित्र":[
-    "चित्र",
-    "photo",
-    "photos",
-    "image",
-    "images"
-  ],
-
-  "फाइल":[
-    "फाइल",
-    "फ़ाइल",
-    "file",
-    "files"
-  ],
-
-  "फ़ाइल":[
-    "फाइल",
-    "फ़ाइल",
-    "file",
-    "files"
-  ],
-
-  "फाइलें":[
-    "फाइल",
-    "फ़ाइल",
-    "file",
-    "files"
-  ],
-
-  "वीडियो":[
-    "वीडियो",
-    "video",
-    "videos"
-  ],
-
-  "पीडीएफ":[
-    "पीडीएफ",
-    "pdf"
-  ],
-
-  "pdf":[
-    "पीडीएफ",
-    "pdf"
-  ],
-
-  "दस्तावेज":[
-    "दस्तावेज",
-    "document",
-    "documents"
-  ],
-
-  "डॉक्यूमेंट":[
-    "डॉक्यूमेंट",
-    "document",
-    "documents"
-  ],
-
-  "पैन":[
-    "पैन",
-    "pan"
-  ],
-
-  "आधार":[
-    "आधार",
-    "aadhar",
-    "aadhaar"
-  ],
-
-  "पासपोर्ट":[
-    "पासपोर्ट",
-    "passport"
-  ],
-
-  "राशन":[
-    "राशन",
-    "ration"
-  ],
-
-  "बैंक":[
-    "बैंक",
-    "bank"
-  ],
-
-  "पीएफ":[
-    "पीएफ",
-    "pf",
-    "epf"
-  ],
-
-  "pf":[
-    "पीएफ",
-    "pf",
-    "epf"
-  ],
-
-  "ईपीएफ":[
-    "ईपीएफ",
-    "epf",
-    "pf",
-    "पीएफ"
-  ]
-
-};
-
-
-/* =========================================================
-   GET SEARCH VARIANTS
-========================================================= */
+/* =====================================================
+   HINDI / ENGLISH ALIASES
+===================================================== */
 
 function getSearchVariants(text){
 
@@ -992,87 +784,82 @@ function getSearchVariants(text){
     normalizeText(text);
 
   const variants =
-    new Set();
+    [original];
 
 
-  if(original){
+  const aliases = {
 
-    variants.add(original);
+    "स्क्रीनशॉट":
+    ["screenshot","screen shot"],
 
-  }
+    "स्क्रीन शॉट":
+    ["screenshot","screen shot"],
+
+    "screenshot":
+    ["स्क्रीनशॉट","स्क्रीन शॉट"],
+
+    "screen shot":
+    ["screenshot","स्क्रीनशॉट"],
+
+    "फोटो":
+    ["photo","photos","image","images"],
+
+    "तस्वीर":
+    ["photo","image"],
+
+    "तस्वीरें":
+    ["photos","images"],
+
+    "इमेज":
+    ["image","images"],
+
+    "पीडीएफ":
+    ["pdf"],
+
+    "दस्तावेज":
+    ["document","documents"],
+
+    "डॉक्यूमेंट":
+    ["document","documents"]
+
+  };
 
 
-  Object.keys(
-    bilingualMap
-  ).forEach(
-    function(key){
-
-      const keyNorm =
-        normalizeText(key);
-
+  Object.keys(aliases)
+    .forEach(function(key){
 
       if(
-        original === keyNorm ||
-        original.includes(keyNorm)
+        original.includes(
+          normalizeText(key)
+        )
       ){
 
-        bilingualMap[key]
-          .forEach(
-            function(v){
+        aliases[key]
+          .forEach(function(alias){
 
-              variants.add(
-                normalizeText(v)
-              );
+            variants.push(
+              normalizeText(alias)
+            );
 
-            }
-          );
+          });
 
       }
 
-    }
-  );
+    });
 
 
-  return Array
-    .from(variants)
-    .filter(Boolean);
-
-}
-
-
-/* =========================================================
-   BILINGUAL FILE MATCH
-========================================================= */
-
-function bilingualMatch(
-  fileName,
-  searchText
-){
-
-  const file =
-    normalizeText(fileName);
-
-
-  const variants =
-    getSearchVariants(
-      searchText
-    );
-
-
-  return variants.some(
-    function(v){
-
-      return file.includes(v);
-
-    }
-  );
+  return [
+    ...new Set(
+      variants.filter(Boolean)
+    )
+  ];
 
 }
 
 
-/* =========================================================
+/* =====================================================
    CLEAN VOICE COMMAND
-========================================================= */
+===================================================== */
 
 function cleanVoiceCommand(text){
 
@@ -1083,7 +870,7 @@ function cleanVoiceCommand(text){
 
   t =
     t.replace(
-      /^(जार्विस|jarvis)\s*/i,
+      /^(जार्विस|जर्विस|jarvis)\s*/i,
       ""
     );
 
@@ -1100,9 +887,9 @@ function cleanVoiceCommand(text){
 }
 
 
-/* =========================================================
+/* =====================================================
    EXTRACT FILE SEARCH TERM
-========================================================= */
+===================================================== */
 
 function extractSearchTerm(text){
 
@@ -1112,7 +899,7 @@ function extractSearchTerm(text){
 
   t =
     t.replace(
-      /^(आज|कल|वाली|वाला|वाले|की|का|के|में|मे|को|नाम|नंबर|नम्बर)\s+/gi,
+      /^(आज|कल|वाली|वाला|वाले)\s+/gi,
       ""
     );
 
@@ -1122,8 +909,22 @@ function extractSearchTerm(text){
       /\b(
         फाइल|
         फ़ाइल|
-        files|
+        फाइलें|
+        फ़ाइलें|
         file|
+        files|
+        नाम|
+        number|
+        नंबर|
+        नम्बर
+      )\b/gi,
+      " "
+    );
+
+
+  t =
+    t.replace(
+      /\b(
         खोलो|
         खोलना|
         खोलें|
@@ -1147,24 +948,41 @@ function extractSearchTerm(text){
 
   t =
     t.replace(
-      /फाइलें|फ़ाइलें/gi,
+      /\b(
+        नाम की|
+        नाम का|
+        नाम के|
+        वाली|
+        वाला|
+        वाले
+      )\b/gi,
       " "
     );
 
 
-  return t
-    .replace(
+  t =
+    t.replace(
+      /में|मे|की|का|के|को/gi,
+      " "
+    );
+
+
+  t =
+    t.replace(
       /\s+/g,
       " "
     )
     .trim();
 
+
+  return t;
+
 }
 
 
-/* =========================================================
-   NORMAL FILE SEARCH
-========================================================= */
+/* =====================================================
+   FILE SEARCH
+===================================================== */
 
 async function searchFiles(){
 
@@ -1183,10 +1001,11 @@ async function searchFiles(){
 
     status(
       "searchStatus",
-      "पहले file का नाम लिखें।"
+      "❌ पहले file का नाम लिखें।"
     );
 
     return;
+
   }
 
 
@@ -1194,10 +1013,11 @@ async function searchFiles(){
 
     status(
       "searchStatus",
-      "पहले Folder ID डालें।"
+      "❌ पहले Folder ID डालें।"
     );
 
     return;
+
   }
 
 
@@ -1205,10 +1025,11 @@ async function searchFiles(){
 
     status(
       "searchStatus",
-      "पहले Google Login करें।"
+      "❌ पहले Google Login करें।"
     );
 
     return;
+
   }
 
 
@@ -1222,17 +1043,18 @@ async function searchFiles(){
 
     const url =
       "https://www.googleapis.com/drive/v3/files?" +
+
       new URLSearchParams({
 
         q:q,
 
         fields:
-          "files(id,name,mimeType,modifiedTime)",
+        "files(id,name,mimeType,modifiedTime)",
 
         pageSize:"100",
 
         orderBy:
-          "modifiedTime desc"
+        "modifiedTime desc"
 
       });
 
@@ -1244,45 +1066,62 @@ async function searchFiles(){
 
 
     const files =
-      (data.files || [])
-        .filter(
-          function(file){
+      data.files || [];
 
-            return bilingualMatch(
-              file.name,
-              term
-            );
+
+    const variants =
+      getSearchVariants(term);
+
+
+    const found =
+      files.filter(function(file){
+
+        const name =
+          normalizeText(file.name);
+
+
+        return variants.some(
+          function(v){
+
+            return name.includes(v);
 
           }
         );
 
+      });
+
 
     status(
       "searchStatus",
 
-      files.length
+      found.length
 
-        ? "✅ " +
-          files.length +
-          " file मिली।"
+      ?
 
-        : "❌ कोई file नहीं मिली।"
+      "✅ " +
+      found.length +
+      " file मिली।"
+
+      :
+
+      "❌ कोई file नहीं मिली।"
+
     );
 
 
-    document.getElementById(
-      "searchResults"
-    ).innerHTML =
-      files
+    document
+      .getElementById("searchResults")
+      .innerHTML =
+      found
         .map(fileHtml)
         .join("");
 
-  }
-  catch(error){
+
+  }catch(error){
 
     status(
       "searchStatus",
-      "Search Error: " +
+      "❌ Search Error: " +
       error.message
     );
 
@@ -1291,9 +1130,9 @@ async function searchFiles(){
 }
 
 
-/* =========================================================
-   UPLOAD FILE
-========================================================= */
+/* =====================================================
+   FILE UPLOAD
+===================================================== */
 
 async function uploadFile(){
 
@@ -1315,10 +1154,11 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "पहले कोई file चुनें।"
+      "❌ पहले कोई file चुनें।"
     );
 
     return;
+
   }
 
 
@@ -1326,10 +1166,11 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "पहले Folder ID डालें।"
+      "❌ पहले Folder ID डालें।"
     );
 
     return;
+
   }
 
 
@@ -1337,10 +1178,11 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "पहले Google Login करें।"
+      "❌ पहले Google Login करें।"
     );
 
     return;
+
   }
 
 
@@ -1355,9 +1197,7 @@ async function uploadFile(){
 
       name:file.name,
 
-      parents:[
-        folderId
-      ]
+      parents:[folderId]
 
     };
 
@@ -1378,10 +1218,8 @@ async function uploadFile(){
         "\r\n",
 
         "Content-Type: " +
-        (
-          file.type ||
-          "application/octet-stream"
-        ) +
+        (file.type ||
+        "application/octet-stream") +
         "\r\n\r\n",
 
         file,
@@ -1402,9 +1240,11 @@ async function uploadFile(){
         method:"POST",
 
         headers:{
+
           "Content-Type":
-            "multipart/related; boundary=" +
-            boundary
+          "multipart/related; boundary=" +
+          boundary
+
         },
 
         body:body
@@ -1416,7 +1256,7 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "File successfully upload हो गई ✅"
+      "✅ File successfully upload हो गई।"
     );
 
 
@@ -1425,12 +1265,12 @@ async function uploadFile(){
 
     listFiles();
 
-  }
-  catch(error){
+
+  }catch(error){
 
     status(
       "uploadStatus",
-      "Upload Error: " +
+      "❌ Upload Error: " +
       error.message
     );
 
@@ -1439,9 +1279,9 @@ async function uploadFile(){
 }
 
 
-/* =========================================================
+/* =====================================================
    SAVE NOTE
-========================================================= */
+===================================================== */
 
 async function saveNote(){
 
@@ -1460,10 +1300,11 @@ async function saveNote(){
 
     status(
       "noteStatus",
-      "पहले note लिखें।"
+      "❌ पहले note लिखें।"
     );
 
     return;
+
   }
 
 
@@ -1471,10 +1312,11 @@ async function saveNote(){
 
     status(
       "noteStatus",
-      "पहले Folder ID डालें।"
+      "❌ पहले Folder ID डालें।"
     );
 
     return;
+
   }
 
 
@@ -1482,10 +1324,11 @@ async function saveNote(){
 
     status(
       "noteStatus",
-      "पहले Google Login करें।"
+      "❌ पहले Google Login करें।"
     );
 
     return;
+
   }
 
 
@@ -1499,16 +1342,14 @@ async function saveNote(){
     const metadata = {
 
       name:
-        "JARVIS_NOTE_" +
-        Date.now() +
-        ".txt",
+      "JARVIS_NOTE_" +
+      Date.now() +
+      ".txt",
 
-      parents:[
-        folderId
-      ],
+      parents:[folderId],
 
       mimeType:
-        "text/plain"
+      "text/plain"
 
     };
 
@@ -1548,9 +1389,11 @@ async function saveNote(){
         method:"POST",
 
         headers:{
+
           "Content-Type":
-            "multipart/related; boundary=" +
-            boundary
+          "multipart/related; boundary=" +
+          boundary
+
         },
 
         body:body
@@ -1560,25 +1403,25 @@ async function saveNote(){
     );
 
 
-    document.getElementById(
-      "noteText"
-    ).value = "";
+    document
+      .getElementById("noteText")
+      .value = "";
 
 
     status(
       "noteStatus",
-      "Note Drive में save हो गया ✅"
+      "✅ Note Drive में save हो गया।"
     );
 
 
     listFiles();
 
-  }
-  catch(error){
+
+  }catch(error){
 
     status(
       "noteStatus",
-      "Note Error: " +
+      "❌ Note Error: " +
       error.message
     );
 
@@ -1587,9 +1430,9 @@ async function saveNote(){
 }
 
 
-/* =========================================================
-   NOTES SEARCH
-========================================================= */
+/* =====================================================
+   NOTE SEARCH
+===================================================== */
 
 async function searchNotes(
   voiceTerm=""
@@ -1597,6 +1440,7 @@ async function searchNotes(
 
   const term =
     voiceTerm ||
+
     document
       .getElementById(
         "noteSearchText"
@@ -1613,10 +1457,11 @@ async function searchNotes(
 
     status(
       "noteSearchStatus",
-      "पहले Note में क्या खोजना है लिखें।"
+      "❌ पहले Note में क्या खोजना है लिखें।"
     );
 
     return;
+
   }
 
 
@@ -1624,10 +1469,11 @@ async function searchNotes(
 
     status(
       "noteSearchStatus",
-      "पहले Folder ID डालें।"
+      "❌ पहले Folder ID डालें।"
     );
 
     return;
+
   }
 
 
@@ -1635,10 +1481,11 @@ async function searchNotes(
 
     status(
       "noteSearchStatus",
-      "पहले Google Login करें।"
+      "❌ पहले Google Login करें।"
     );
 
     return;
+
   }
 
 
@@ -1658,17 +1505,18 @@ async function searchNotes(
 
     const url =
       "https://www.googleapis.com/drive/v3/files?" +
+
       new URLSearchParams({
 
         q:q,
 
         fields:
-          "files(id,name,mimeType,modifiedTime)",
+        "files(id,name,mimeType,modifiedTime)",
 
         pageSize:"100",
 
         orderBy:
-          "modifiedTime desc"
+        "modifiedTime desc"
 
       });
 
@@ -1691,16 +1539,19 @@ async function searchNotes(
       );
 
 
-      document.getElementById(
-        "noteSearchResults"
-      ).innerHTML = "";
+      document
+        .getElementById(
+          "noteSearchResults"
+        )
+        .innerHTML = "";
 
 
       return;
+
     }
 
 
-    const wantedVariants =
+    const variants =
       getSearchVariants(term);
 
 
@@ -1715,9 +1566,7 @@ async function searchNotes(
 
         const contentUrl =
           "https://www.googleapis.com/drive/v3/files/" +
-          encodeURIComponent(
-            note.id
-          ) +
+          encodeURIComponent(note.id) +
           "?alt=media";
 
 
@@ -1731,24 +1580,22 @@ async function searchNotes(
           await response.text();
 
 
-        const contentNormalized =
-          normalizeText(
-            content
-          );
+        const normalizedContent =
+          normalizeText(content);
 
 
-        const matched =
-          wantedVariants.some(
+        const match =
+          variants.some(
             function(v){
 
-              return contentNormalized
+              return normalizedContent
                 .includes(v);
 
             }
           );
 
 
-        if(matched){
+        if(match){
 
           found.push({
 
@@ -1762,8 +1609,8 @@ async function searchNotes(
 
         }
 
-      }
-      catch(error){
+
+      }catch(error){
 
         console.log(
           "Note read error:",
@@ -1785,12 +1632,15 @@ async function searchNotes(
       );
 
 
-      document.getElementById(
-        "noteSearchResults"
-      ).innerHTML = "";
+      document
+        .getElementById(
+          "noteSearchResults"
+        )
+        .innerHTML = "";
 
 
       return;
+
     }
 
 
@@ -1802,51 +1652,50 @@ async function searchNotes(
     );
 
 
-    document.getElementById(
-      "noteSearchResults"
-    ).innerHTML =
+    document
+      .getElementById(
+        "noteSearchResults"
+      )
+      .innerHTML =
 
       found
-        .map(
-          function(note){
+        .map(function(note){
 
-            return `
+          return `
 
-            <div class="file">
+          <div class="file">
 
-              <b>
-                ${esc(note.name)}
-              </b>
+            <b>
+              ${esc(note.name)}
+            </b>
 
-              <div class="noteBox">
-                ${esc(note.content)}
-              </div>
-
-              <br>
-
-              <a
-                href="${driveLink(note.id)}"
-                target="_blank"
-                rel="noopener"
-              >
-                📂 Note Drive में खोलें
-              </a>
-
+            <div class="noteBox">
+              ${esc(note.content)}
             </div>
 
-            `;
+            <br>
 
-          }
-        )
+            <a
+              href="${driveLink(note.id)}"
+              target="_blank"
+              rel="noopener"
+            >
+              📂 Note Drive में खोलें
+            </a>
+
+          </div>
+
+          `;
+
+        })
         .join("");
 
 
-  }
-  catch(error){
+  }catch(error){
 
     status(
       "noteSearchStatus",
-      "Notes Search Error: " +
+      "❌ Notes Search Error: " +
       error.message
     );
 
@@ -1855,9 +1704,9 @@ async function searchNotes(
 }
 
 
-/* =========================================================
+/* =====================================================
    VOICE JARVIS
-========================================================= */
+===================================================== */
 
 function startVoiceJARVIS(){
 
@@ -1870,21 +1719,17 @@ function startVoiceJARVIS(){
 
     status(
       "voiceStatus",
-      "Chrome में Voice Search चलाएँ।"
+      "❌ Chrome में Voice Search चलाएँ।"
     );
 
     return;
+
   }
 
 
   const recognition =
     new SpeechRecognition();
 
-
-  /*
-     Hindi primary language
-     English words भी transcript में आएंगे
-  */
 
   recognition.lang =
     "hi-IN";
@@ -1904,7 +1749,7 @@ function startVoiceJARVIS(){
 
   status(
     "voiceStatus",
-    "🎤 Hindi/English में सुन रहा हूँ..."
+    "🎤 सुन रहा हूँ..."
   );
 
 
@@ -1912,8 +1757,7 @@ function startVoiceJARVIS(){
 
     recognition.start();
 
-  }
-  catch(error){
+  }catch(error){
 
     status(
       "voiceStatus",
@@ -1921,193 +1765,195 @@ function startVoiceJARVIS(){
     );
 
     return;
+
   }
 
 
   recognition.onresult =
-    function(event){
+  function(event){
 
-      const spoken =
-        event
-          .results[0][0]
-          .transcript
-          .trim();
+    const spoken =
+      event.results[0][0]
+      .transcript
+      .trim();
 
 
-      status(
-        "voiceStatus",
-        "आपने कहा: " +
+    status(
+      "voiceStatus",
+      "🎤 आपने कहा: " +
+      spoken
+    );
+
+
+    const command =
+      cleanVoiceCommand(
         spoken
       );
 
 
-      const command =
-        cleanVoiceCommand(
-          spoken
+    /* ==========================
+       NOTES VOICE SEARCH
+    ========================== */
+
+    if(
+      /नोट्स|नोट|notes|note/i
+      .test(command)
+    ){
+
+      let noteTerm =
+        command;
+
+
+      noteTerm =
+        noteTerm.replace(
+          /नोट्स|नोट|notes|note/gi,
+          " "
         );
 
 
-      /* =====================================
-         NOTES
-      ===================================== */
-
-      if(
-        /नोट्स|नोट|notes|note/i
-          .test(command)
-      ){
-
-        let noteTerm =
-          command
-
-            .replace(
-              /नोट्स|नोट|notes|note/gi,
-              " "
-            )
-
-            .replace(
-              /में|मे|के|की|का|को|वाला|वाली|वाले/gi,
-              " "
-            )
-
-            .replace(
-              /ढूंढो|ढूँढो|ढूंढना|ढूँढना|खोजो|खोजना|खोजें|सर्च|search|दिखाओ|दिखाना|show|खोलो|खोलना|खोलें|open/gi,
-              " "
-            )
-
-            .replace(
-              /\s+/g,
-              " "
-            )
-
-            .trim();
-
-
-        if(!noteTerm){
-
-          status(
-            "voiceStatus",
-            "❌ Notes में क्या खोजना है, बोलिए।"
-          );
-
-          return;
-        }
-
-
-        document.getElementById(
-          "noteSearchText"
-        ).value =
-          noteTerm;
-
-
-        searchNotes(
-          noteTerm
+      noteTerm =
+        noteTerm.replace(
+          /में|मे|के|की|का|को|वाला|वाली|वाले/gi,
+          " "
         );
 
 
-        return;
-      }
-
-
-      /* =====================================
-         TODAY
-      ===================================== */
-
-      const today =
-        /आज|today/i
-          .test(command);
-
-
-      /* =====================================
-         IMAGE
-      ===================================== */
-
-      const imageOnly =
-        /फोटो|photo|photos|image|images|इमेज|तस्वीर|तस्वीरें|picture|pictures|चित्र/i
-          .test(command);
-
-
-      /* =====================================
-         AUTO OPEN
-      ===================================== */
-
-      const autoOpen =
-        /खोलो|खोलना|खोलें|open/i
-          .test(command);
-
-
-      /* =====================================
-         FILE TERM
-      ===================================== */
-
-      const term =
-        extractSearchTerm(
-          command
+      noteTerm =
+        noteTerm.replace(
+          /ढूंढो|ढूँढो|ढूंढना|ढूँढना|खोजो|खोजना|खोजें|सर्च|search|दिखाओ|दिखाना|show|खोलो|खोलना|खोलें|open/gi,
+          " "
         );
 
 
-      if(
-        !term &&
-        !today
-      ){
+      noteTerm =
+        noteTerm
+          .replace(
+            /\s+/g,
+            " "
+          )
+          .trim();
+
+
+      if(!noteTerm){
 
         status(
           "voiceStatus",
-          "❌ File का नाम समझ नहीं आया।"
+          "❌ Notes में क्या खोजना है, बोलिए।"
         );
 
         return;
+
       }
 
 
-      document.getElementById(
-        "searchText"
-      ).value =
-        term;
+      document
+        .getElementById(
+          "noteSearchText"
+        )
+        .value = noteTerm;
 
 
-      voiceSearch(
-        term,
-        {
-
-          today:today,
-
-          imageOnly:imageOnly,
-
-          autoOpen:autoOpen
-
-        }
+      searchNotes(
+        noteTerm
       );
 
-    };
+
+      return;
+
+    }
 
 
-  recognition.onerror =
-    function(event){
+    /* ==========================
+       FILE VOICE SEARCH
+    ========================== */
+
+    const today =
+      /आज|today/i
+      .test(command);
+
+
+    const imageOnly =
+      /फोटो|photo|photos|image|images|इमेज|तस्वीर|तस्वीरें|picture|pictures|चित्र/i
+      .test(command);
+
+
+    const autoOpen =
+      /खोलो|खोलना|खोलें|open/i
+      .test(command);
+
+
+    const term =
+      extractSearchTerm(
+        command
+      );
+
+
+    if(
+      !term &&
+      !today
+    ){
 
       status(
         "voiceStatus",
-        "Voice Error: " +
-        event.error
+        "❌ File का नाम समझ नहीं आया।"
       );
 
-    };
+      return;
+
+    }
+
+
+    document
+      .getElementById(
+        "searchText"
+      )
+      .value = term;
+
+
+    voiceSearch(
+
+      term,
+
+      {
+
+        today:today,
+
+        imageOnly:imageOnly,
+
+        autoOpen:autoOpen
+
+      }
+
+    );
+
+  };
+
+
+  recognition.onerror =
+  function(event){
+
+    status(
+      "voiceStatus",
+      "❌ Voice Error: " +
+      event.error
+    );
+
+  };
 
 
   recognition.onend =
-    function(){
+  function(){
 
-      console.log(
-        "Voice recognition ended"
-      );
+    /* Voice खत्म */
 
-    };
+  };
 
 }
 
 
-/* =========================================================
-   VOICE FILE SEARCH
-========================================================= */
+/* =====================================================
+   VOICE SEARCH
+===================================================== */
 
 async function voiceSearch(
   term,
@@ -2122,10 +1968,11 @@ async function voiceSearch(
 
     status(
       "voiceStatus",
-      "पहले Folder ID डालें।"
+      "❌ पहले Folder ID डालें।"
     );
 
     return;
+
   }
 
 
@@ -2133,10 +1980,11 @@ async function voiceSearch(
 
     status(
       "voiceStatus",
-      "पहले Google Login करें।"
+      "❌ पहले Google Login करें।"
     );
 
     return;
+
   }
 
 
@@ -2144,7 +1992,7 @@ async function voiceSearch(
 
     status(
       "voiceStatus",
-      "🔎 Hindi + English दोनों नामों से Drive में खोज रहा हूँ..."
+      "🔎 Drive में file खोज रहा हूँ..."
     );
 
 
@@ -2156,17 +2004,18 @@ async function voiceSearch(
 
     const url =
       "https://www.googleapis.com/drive/v3/files?" +
+
       new URLSearchParams({
 
         q:q,
 
         fields:
-          "files(id,name,mimeType,modifiedTime)",
+        "files(id,name,mimeType,modifiedTime)",
 
         pageSize:"100",
 
         orderBy:
-          "modifiedTime desc"
+        "modifiedTime desc"
 
       });
 
@@ -2181,9 +2030,9 @@ async function voiceSearch(
       data.files || [];
 
 
-    /* =====================================
-       TODAY FILTER
-    ===================================== */
+    /* ==========================
+       TODAY
+    ========================== */
 
     if(options.today){
 
@@ -2210,7 +2059,9 @@ async function voiceSearch(
             if(
               !file.modifiedTime
             ){
+
               return false;
+
             }
 
 
@@ -2226,9 +2077,9 @@ async function voiceSearch(
     }
 
 
-    /* =====================================
-       IMAGE FILTER
-    ===================================== */
+    /* ==========================
+       IMAGE ONLY
+    ========================== */
 
     if(options.imageOnly){
 
@@ -2248,19 +2099,34 @@ async function voiceSearch(
     }
 
 
-    /* =====================================
-       BILINGUAL SEARCH
-    ===================================== */
+    /* ==========================
+       NAME SEARCH
+    ========================== */
 
     if(term){
+
+      const variants =
+        getSearchVariants(
+          term
+        );
+
 
       files =
         files.filter(
           function(file){
 
-            return bilingualMatch(
-              file.name,
-              term
+            const name =
+              normalizeText(
+                file.name
+              );
+
+
+            return variants.some(
+              function(v){
+
+                return name.includes(v);
+
+              }
             );
 
           }
@@ -2269,52 +2135,54 @@ async function voiceSearch(
     }
 
 
-    /* =====================================
-       NO RESULT
-    ===================================== */
-
     if(!files.length){
 
       status(
         "voiceStatus",
+
         "❌ '" +
         term +
-        "' नाम/समान नाम की कोई file नहीं मिली।"
+        "' नाम की file नहीं मिली।"
       );
 
 
-      document.getElementById(
-        "searchResults"
-      ).innerHTML = "";
+      document
+        .getElementById(
+          "searchResults"
+        )
+        .innerHTML = "";
 
 
       return;
+
     }
 
 
-    /* =====================================
-       RESULT
-    ===================================== */
-
     status(
+
       "voiceStatus",
+
       "✅ " +
       files.length +
       " file मिली।"
+
     );
 
 
-    document.getElementById(
-      "searchResults"
-    ).innerHTML =
+    document
+      .getElementById(
+        "searchResults"
+      )
+      .innerHTML =
+
       files
         .map(fileHtml)
         .join("");
 
 
-    /* =====================================
+    /* ==========================
        AUTO OPEN
-    ===================================== */
+    ========================== */
 
     if(
       options.autoOpen &&
@@ -2330,12 +2198,12 @@ async function voiceSearch(
 
     }
 
-  }
-  catch(error){
+
+  }catch(error){
 
     status(
       "voiceStatus",
-      "Voice Search Error: " +
+      "❌ Voice Search Error: " +
       error.message
     );
 
