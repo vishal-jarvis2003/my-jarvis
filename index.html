@@ -115,6 +115,14 @@ a{
 .error{
   color:red;
 }
+
+.fixedInfo{
+  background:#eef4ff;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:14px;
+}
 </style>
 
 </head>
@@ -132,14 +140,9 @@ a{
 
 <h2>1. 🔐 Google Login</h2>
 
-<input
-  id="clientId"
-  placeholder="Google OAuth Client ID"
->
-
-<button onclick="saveClientId()">
-Save Client ID
-</button>
+<div class="fixedInfo">
+  ✅ Google Client ID पहले से JARVIS में सेट है।
+</div>
 
 <button onclick="googleLogin()">
 Google Login
@@ -158,14 +161,9 @@ Google Login
 
 <h2>2. 📁 JARVIS_DATA</h2>
 
-<input
-  id="folderId"
-  placeholder="JARVIS_DATA Folder ID"
->
-
-<button onclick="saveFolderId()">
-Save Folder ID
-</button>
+<div class="fixedInfo">
+  ✅ JARVIS_DATA Drive Folder पहले से सेट है।
+</div>
 
 <button onclick="listFiles()">
 Drive में Files देखें
@@ -316,11 +314,32 @@ Note Drive में Save करें
 <script>
 
 /* =====================================================
-   GLOBAL
+   MY JARVIS CONFIG
 ===================================================== */
+
+/*
+   आपका Google OAuth Client ID
+*/
+
+const CLIENT_ID =
+"806255243202-3ijvpge3h2ero76f5k9s0sdhc96ds59u.apps.googleusercontent.com";
+
+
+/*
+   आपका JARVIS_DATA Google Drive Folder ID
+*/
+
+const DRIVE_FOLDER_ID =
+"1_yqJoEuNIecq_rTkS-AwfEQPcptIc3mN";
+
+
+/*
+   Google Drive Permission
+*/
 
 const DRIVE_SCOPE =
 "https://www.googleapis.com/auth/drive";
+
 
 let accessToken = null;
 
@@ -335,11 +354,19 @@ let recognition = null;
 
 window.addEventListener("load",function(){
 
-  document.getElementById("clientId").value =
-    localStorage.getItem("jarvisClientId") || "";
+  console.log(
+    "My JARVIS loaded"
+  );
 
-  document.getElementById("folderId").value =
-    localStorage.getItem("jarvisFolderId") || "";
+  console.log(
+    "Client ID:",
+    CLIENT_ID
+  );
+
+  console.log(
+    "JARVIS_DATA Folder:",
+    DRIVE_FOLDER_ID
+  );
 
 });
 
@@ -413,96 +440,10 @@ function stopSpeaking(){
 
 
 /* =====================================================
-   SAVE CLIENT ID
-===================================================== */
-
-function saveClientId(){
-
-  const clientId =
-    document
-      .getElementById("clientId")
-      .value
-      .trim();
-
-  if(!clientId){
-
-    status(
-      "loginStatus",
-      "पहले Client ID डालें।"
-    );
-
-    return;
-  }
-
-  localStorage.setItem(
-    "jarvisClientId",
-    clientId
-  );
-
-  status(
-    "loginStatus",
-    "Client ID save हो गया ✅"
-  );
-
-}
-
-
-/* =====================================================
-   SAVE FOLDER ID
-===================================================== */
-
-function saveFolderId(){
-
-  const folderId =
-    document
-      .getElementById("folderId")
-      .value
-      .trim();
-
-  if(!folderId){
-
-    status(
-      "loginStatus",
-      "पहले Folder ID डालें।"
-    );
-
-    return;
-  }
-
-  localStorage.setItem(
-    "jarvisFolderId",
-    folderId
-  );
-
-  status(
-    "loginStatus",
-    "JARVIS_DATA Folder ID save हो गई ✅"
-  );
-
-}
-
-
-/* =====================================================
    GOOGLE LOGIN
 ===================================================== */
 
 function googleLogin(){
-
-  const clientId =
-    document
-      .getElementById("clientId")
-      .value
-      .trim();
-
-  if(!clientId){
-
-    status(
-      "loginStatus",
-      "पहले Google OAuth Client ID डालें।"
-    );
-
-    return;
-  }
 
   if(
     !window.google ||
@@ -516,13 +457,14 @@ function googleLogin(){
     );
 
     return;
+
   }
 
 
   tokenClient =
     google.accounts.oauth2.initTokenClient({
 
-      client_id:clientId,
+      client_id:CLIENT_ID,
 
       scope:DRIVE_SCOPE,
 
@@ -541,6 +483,7 @@ function googleLogin(){
           );
 
           return;
+
         }
 
 
@@ -644,10 +587,7 @@ async function driveRequest(
 
 function folder(){
 
-  return document
-    .getElementById("folderId")
-    .value
-    .trim();
+  return DRIVE_FOLDER_ID;
 
 }
 
@@ -881,22 +821,6 @@ async function listFiles(){
 
   try{
 
-    const folderId =
-      folder();
-
-
-    if(!folderId){
-
-      document
-        .getElementById("fileList")
-        .textContent =
-        "पहले JARVIS_DATA Folder ID डालें।";
-
-      return;
-
-    }
-
-
     const files =
       await getFolderFiles();
 
@@ -1086,7 +1010,7 @@ async function performSearch(
       ? "voiceStatus"
       : "searchStatus",
 
-      "पहले Folder ID डालें।"
+      "Folder ID उपलब्ध नहीं है।"
     );
 
     return;
@@ -1211,7 +1135,7 @@ async function performSearch(
     /* WORD */
 
     if(
-      /\bword|document\b/i.test(
+      /\b(word|document)\b/i.test(
         converted
       )
     ){
@@ -1400,7 +1324,19 @@ async function uploadFile(){
 
     status(
       "uploadStatus",
-      "पहले Folder ID डालें।"
+      "Folder ID उपलब्ध नहीं है।"
+    );
+
+    return;
+
+  }
+
+
+  if(!accessToken){
+
+    status(
+      "uploadStatus",
+      "पहले Google Login करें।"
     );
 
     return;
@@ -1549,11 +1485,11 @@ async function saveNote(){
   }
 
 
-  if(!folderId){
+  if(!accessToken){
 
     status(
       "noteStatus",
-      "पहले Folder ID डालें।"
+      "पहले Google Login करें।"
     );
 
     return;
@@ -1664,6 +1600,114 @@ async function saveNote(){
     status(
       "noteStatus",
       "Note Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SEARCH NOTES
+===================================================== */
+
+async function searchNotes(){
+
+  const raw =
+    document
+      .getElementById(
+        "noteText"
+      )
+      .value
+      .trim();
+
+
+  if(!raw){
+
+    status(
+      "noteStatus",
+      "जिस note को खोजना है उसका नाम या शब्द लिखें।"
+    );
+
+    return;
+
+  }
+
+
+  if(!accessToken){
+
+    status(
+      "noteStatus",
+      "पहले Google Login करें।"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const files =
+      await getFolderFiles();
+
+
+    const term =
+      normalizeText(
+        convertHindiToEnglish(
+          raw
+        )
+      );
+
+
+    const notes =
+      files.filter(
+        function(file){
+
+          return (
+            file.name
+              .toLowerCase()
+              .includes("jarvis_note")
+            &&
+            normalizeText(
+              file.name
+            ).includes(term)
+          );
+
+        }
+      );
+
+
+    const results =
+      document.getElementById(
+        "noteResults"
+      );
+
+
+    if(!notes.length){
+
+      results.innerHTML =
+        "<p>कोई matching note नहीं मिला।</p>";
+
+      return;
+
+    }
+
+
+    results.innerHTML =
+      notes
+        .map(fileHtml)
+        .join("");
+
+  }
+
+
+  catch(error){
+
+    status(
+      "noteStatus",
+      "Note Search Error: " +
       error.message
     );
 
@@ -1936,12 +1980,6 @@ async function handleVoiceCommand(
 
   const command =
     normalizeText(text);
-
-
-  const converted =
-    convertHindiToEnglish(
-      command
-    );
 
 
   /* ==========================
